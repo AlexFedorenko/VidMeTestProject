@@ -1,11 +1,18 @@
-package com.example.dizzer.vidmetestproject;
+package com.example.dizzer.vidmetestproject.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.dizzer.vidmetestproject.App;
+import com.example.dizzer.vidmetestproject.MainActivity;
+import com.example.dizzer.vidmetestproject.R;
 import com.example.dizzer.vidmetestproject.adapter.RecyclerViewerAdapter;
 import com.example.dizzer.vidmetestproject.model.Video;
 import com.example.dizzer.vidmetestproject.model.Videos;
@@ -14,25 +21,32 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by Dizzer on 10/23/2017.
+ */
+
+public class FeaturedFragment extends Fragment {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     RecyclerViewerAdapter recyclerViewerAdapter;
 
+    Unbinder unbinder;
+
     public List<Video> videos;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.featured_fragment_layout,container,false);
+        unbinder = ButterKnife.bind(this,rootView);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         App.getApi().getFeaturedVideo(2).enqueue(new Callback<Videos>() {
             @Override
             public void onResponse(Call<Videos> call, Response<Videos> response) {
@@ -43,8 +57,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Videos> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Feil",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Feil",Toast.LENGTH_LONG).show();
             }
         });
+
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

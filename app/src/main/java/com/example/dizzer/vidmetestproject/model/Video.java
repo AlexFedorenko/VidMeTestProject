@@ -23,6 +23,35 @@ public class Video {
     @SerializedName("likes_count")
     @Expose
     private Integer likes_count;
+    @SerializedName("complete")
+    @Expose
+    private String complete;
+    @SerializedName("url")
+    @Expose
+    private String url;
+    @SerializedName("full_url")
+    @Expose
+    private String fullUrl;
+    @SerializedName("embed_url")
+    @Expose
+    private String embedUrl;
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getFullUrl() {
+        return fullUrl;
+    }
+
+    public String getEmbedUrl() {
+        return embedUrl;
+    }
+
+    public String getComplete(){
+        return complete;
+    }
 
     public String getComplete_url() {
         return complete_url;
