@@ -21,6 +21,8 @@ public class PageAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0 :
                 return new FeaturedFragment();
+            case 1:
+                return new FeaturedFragment();
         }
 
         return null;
@@ -28,13 +30,14 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0 : return "Featured";
+            case 1 : return "New";
         }
 
         return null;
