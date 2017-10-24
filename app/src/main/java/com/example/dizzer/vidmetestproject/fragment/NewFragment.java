@@ -41,11 +41,11 @@ public class NewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.featured_fragment_layout,container,false);
+        View rootView = inflater.inflate(R.layout.video_fragment_layout,container,false);
         unbinder = ButterKnife.bind(this,rootView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        App.getApi().getNewVideo(2).enqueue(new Callback<Videos>() {
+        App.getApi().getNewVideo().enqueue(new Callback<Videos>() {
             @Override
             public void onResponse(Call<Videos> call, Response<Videos> response) {
                 videos = response.body().getVideos();
