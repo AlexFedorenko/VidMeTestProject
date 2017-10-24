@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.dizzer.vidmetestproject.fragment.AuthFragment;
 import com.example.dizzer.vidmetestproject.fragment.FeaturedFragment;
 import com.example.dizzer.vidmetestproject.fragment.NewFragment;
 
@@ -24,6 +25,8 @@ public class PageAdapter extends FragmentPagerAdapter {
                 return new FeaturedFragment();
             case 1:
                 return new NewFragment();
+            case 2:
+                return new AuthFragment();
         }
 
         return null;
@@ -31,7 +34,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -39,6 +42,7 @@ public class PageAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0 : return "Featured";
             case 1 : return "New";
+            case 2 : return "Feed";
         }
 
         return null;
