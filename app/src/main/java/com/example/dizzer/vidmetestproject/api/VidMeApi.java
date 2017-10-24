@@ -14,4 +14,7 @@ public interface VidMeApi {
 
     @GET("/videos/featured")
     Call<Videos> getFeaturedVideo(@Query("limit") int limit);
+
+    @GET("/videos/new")
+    Call<Videos> getNewVideo(@Query("limit") int limit);
 }

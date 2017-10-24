@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.dizzer.vidmetestproject.fragment.FeaturedFragment;
+import com.example.dizzer.vidmetestproject.fragment.NewFragment;
 
 /**
  * Created by Dizzer on 10/24/2017.
@@ -22,7 +23,7 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 0 :
                 return new FeaturedFragment();
             case 1:
-                return new FeaturedFragment();
+                return new NewFragment();
         }
 
         return null;
