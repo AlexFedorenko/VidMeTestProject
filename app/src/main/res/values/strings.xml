@@ -3,4 +3,5 @@
     <string name="loginTE">Login</string>
     <string name="passwordTE">Password</string>
     <string name="singInBtn">Log in</string>
+    <string name="follow_tab">Follow video</string>
 </resources>
