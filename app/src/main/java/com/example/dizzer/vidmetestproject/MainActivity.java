@@ -1,11 +1,13 @@
 package com.example.dizzer.vidmetestproject;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.example.dizzer.vidmetestproject.adapter.PageAdapter;
 import com.example.dizzer.vidmetestproject.adapter.RecyclerViewerAdapter;
 import com.example.dizzer.vidmetestproject.model.Video;
 import com.example.dizzer.vidmetestproject.model.Videos;
@@ -20,10 +22,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-    RecyclerViewerAdapter recyclerViewerAdapter;
+//    @BindView(R.id.recyclerView)
+//    RecyclerView recyclerView;
+    @BindView(R.id.pageContainer)
+    ViewPager viewPager;
 
+    RecyclerViewerAdapter recyclerViewerAdapter;
     public List<Video> videos;
 
     @Override
@@ -32,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+
+       /* recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         App.getApi().getFeaturedVideo(2).enqueue(new Callback<Videos>() {
             @Override
             public void onResponse(Call<Videos> call, Response<Videos> response) {
@@ -45,6 +51,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<Videos> call, Throwable t) {
                 Toast.makeText(MainActivity.this,"Feil",Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
     }
 }
