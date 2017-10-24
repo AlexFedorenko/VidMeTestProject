@@ -48,10 +48,10 @@ public class AuthFragment extends Fragment {
     Unbinder unbinder;
     Call<LogInResult> call;
 
-    String loginValue;
-    String passwordValue;
-    String savedLogin;
-    String savedPassword;
+    private String loginValue;
+    private String passwordValue;
+    private String savedLogin;
+    private String savedPassword;
 
 
     @Nullable
@@ -110,13 +110,17 @@ public class AuthFragment extends Fragment {
                         SharedPreferences successfulConnectionValues = getActivity().getSharedPreferences("Auth",Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = successfulConnectionValues.edit();
                         editor.putString(TOKEN, response.body().getAuth().getToken());
-                        editor.putString(LOGIN, loginValue);
-                        editor.putString(PASSWORD, passwordValue);
-                        editor.commit();
-
-                        Toast.makeText(getActivity(),"You log in",Toast.LENGTH_LONG).show();
-//                        Intent user_activity_intent = new Intent(getActivity(), UserVideoActivity.class);
-//                        startActivity(user_activity_intent);
+                        if (savedLogin!=null & savedPassword!=null){
+                            editor.putString(LOGIN, savedLogin);
+                            editor.putString(PASSWORD, savedPassword);
+                            editor.commit();
+                        }else {
+                            editor.putString(LOGIN, loginValue);
+                            editor.putString(PASSWORD, passwordValue);
+                            editor.commit();
+                        }
+                        Intent user_activity_intent = new Intent(getActivity(), UserVideoActivity.class);
+                        startActivity(user_activity_intent);
 
                     }
                 }
@@ -124,7 +128,6 @@ public class AuthFragment extends Fragment {
 
             @Override
             public void onFailure(Call<LogInResult> call, Throwable t) {
-
                 call.cancel();
                 buildDialog(getActivity());
             }

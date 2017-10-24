@@ -1,5 +1,7 @@
 package com.example.dizzer.vidmetestproject.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,7 +31,7 @@ import retrofit2.Response;
  * Created by Dizzer on 10/24/2017.
  */
 
-public class NewFragment extends Fragment {
+public class FeedFragment extends Fragment{
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     RecyclerViewerAdapter recyclerViewerAdapter;
@@ -45,7 +47,8 @@ public class NewFragment extends Fragment {
         unbinder = ButterKnife.bind(this,rootView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        App.getApi().getNewVideo().enqueue(new Callback<Videos>() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Auth", Context.MODE_PRIVATE);
+        App.getApi().getFeedVideo(sharedPreferences.getString(AuthFragment.TOKEN,null)).enqueue(new Callback<Videos>() {
             @Override
             public void onResponse(Call<Videos> call, Response<Videos> response) {
                 videos = response.body().getVideos();
