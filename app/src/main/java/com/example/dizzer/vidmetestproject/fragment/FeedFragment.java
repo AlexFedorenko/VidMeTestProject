@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ import retrofit2.Response;
  */
 
 public class FeedFragment extends Fragment {
+    @BindView(R.id.refresher)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     RecyclerViewerAdapter recyclerViewerAdapter;
@@ -52,6 +55,20 @@ public class FeedFragment extends Fragment {
         unbinder = ButterKnife.bind(this,rootView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        getVideos();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getVideos();
+                recyclerViewerAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        return rootView;
+    }
+
+    public void getVideos(){
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Auth", Context.MODE_PRIVATE);
         App.getApi().getFeedVideo(sharedPreferences.getString(AuthFragment.TOKEN,null)).enqueue(new Callback<Videos>() {
             @Override
@@ -66,8 +83,6 @@ public class FeedFragment extends Fragment {
                 Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
             }
         });
-
-        return rootView;
     }
 
     @Override

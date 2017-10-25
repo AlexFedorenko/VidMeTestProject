@@ -85,7 +85,11 @@ public class AuthFragment extends Fragment {
         savedLogin = SavedUsernameAndPasswordValues.getString(LOGIN,null);
         savedPassword = SavedUsernameAndPasswordValues.getString(PASSWORD,null);
         if(savedLogin ==null || savedPassword ==null) {
-            call = App.getApi().insertUser(loginValue, passwordValue);
+            if (loginValue.trim() == "" || (passwordValue.trim().length()<6)) {
+                Toast.makeText(getActivity(),"Please enter login and password correct",Toast.LENGTH_LONG).show();
+            }else {
+                call = App.getApi().insertUser(loginValue, passwordValue);
+            }
         }
         else{
             call = App.getApi().insertUser(savedLogin, savedPassword);

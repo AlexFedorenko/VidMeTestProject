@@ -28,7 +28,6 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 2:
                 return new AuthFragment();
         }
-
         return null;
     }
 

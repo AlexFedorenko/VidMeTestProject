@@ -64,7 +64,7 @@ public class FeaturedFragment extends Fragment {
     public void getVideos(){
         App.getApi().getFeaturedVideo().enqueue(new Callback<Videos>() {
             @Override
-            public void onResponse(Call<Videos> call, Response<Videos> response) {
+            public void onResponse(Call<Videos> call, final Response<Videos> response) {
                 videos = response.body().getVideos();
                 recyclerViewerAdapter = new RecyclerViewerAdapter(videos);
                 recyclerView.setAdapter(recyclerViewerAdapter);
